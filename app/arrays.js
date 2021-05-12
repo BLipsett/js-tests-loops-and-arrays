@@ -4,11 +4,15 @@
 // output: ['is', 'a', 'split', 'sentence.', 'This']
 
 function rearranger(arr) {
+  let newArray = arr;
+  let firstItem = arr.shift();
+
+  newArray.push(firstItem);
+
+  return newArray;
 }
 
-
 // ------------------------------------------
-
 
 // 2. Given an array of numbers, return the largest number in the array.
 // Example:
@@ -16,11 +20,14 @@ function rearranger(arr) {
 // output: 42
 
 function largestNum(arr) {
+  let newArr = arr.sort(function (b, a) {
+    return a - b;
+  });
+
+  return newArr[0];
 }
 
-
 // ------------------------------------------
-
 
 // 3. Given an array of numbers, return an array where every element in the given array is multiplied by the length of the given array.
 // Example:
@@ -28,47 +35,62 @@ function largestNum(arr) {
 // output: [16, 8, 4, 28]
 
 function elemsTimesLength(arr) {
+  let length = arr.length;
+
+  let newArr = [];
+  for (let i = 0; i < arr.length; i++) {
+    let newNum = arr[i] * length;
+    newArr.push(newNum);
+  }
+  return newArr;
+  // console.log();
 }
 
-
 // ------------------------------------------
-
-
 
 //4. Flights from Boise. Write a function that will use the following data to return the cost of flights from boise to a neighboring city, by default return the standard cost unless firstClass is set to true
 
-let flights = [{
-    from: 'BOI',
-    to: 'LAX',
+let flights = [
+  {
+    from: "BOI",
+    to: "LAX",
     prices: {
-        standard: 500,
-        firstClass: 2200
-    }
-}, {
-    from: 'BOI',
-    to: 'SEA',
+      standard: 500,
+      firstClass: 2200,
+    },
+  },
+  {
+    from: "BOI",
+    to: "SEA",
     prices: {
-        standard: 800,
-        firstClass: 1200
-    }
-}, {
-    from: 'BOI',
-    to: 'CAN',
+      standard: 800,
+      firstClass: 1200,
+    },
+  },
+  {
+    from: "BOI",
+    to: "CAN",
     prices: {
-        standard: 750,
-        firstClass: 6200
-    }
-}]
-
+      standard: 750,
+      firstClass: 6200,
+    },
+  },
+];
 
 function flightCost(destination, firstClass) {
-    //***hint: use the find method***
-
+  //***hint: use the find method***
+  //   console.log(destination);
+  //   console.log(flights[0]);
+  const ticket = flights.find((f) => f.to == destination.toUpperCase());
+  //   console.log("found", ticket);
+  if (firstClass == false) {
+    return ticket.prices.standard;
+  } else {
+    return ticket.prices.firstClass;
+  }
 }
 
-
 // ------------------------------------------
-
 
 // 5. Given a number, return the corresponding user object from the staff array that has the given number as the value of their id property. If no user is found, return an object with an error property and value of "No user with that id."
 // Example:
@@ -76,20 +98,34 @@ function flightCost(destination, firstClass) {
 // output: {id: 17, name: 'St. MaryLou de la Playa Carmen'}
 //Example:
 // input: 1000
-// output: { error: "No user with that id." } 
+// output: { error: "No user with that id." }
 
-
-let staff = [{ id: 1, name: 'Jon' }, { id: 2, name: 'Yuli' }, { id: 21, name: 'Peter' },
-{ id: 17, name: 'St. MaryLou de la Playa Carmen' }, { id: 51, name: 'Doug' },
-{ id: 881, name: 'Paul' }, { id: 0, name: 'Jon' }, { id: 999, name: 'Timma' }]
+let staff = [
+  { id: 1, name: "Jon" },
+  { id: 2, name: "Yuli" },
+  { id: 21, name: "Peter" },
+  { id: 17, name: "St. MaryLou de la Playa Carmen" },
+  { id: 51, name: "Doug" },
+  { id: 881, name: "Paul" },
+  { id: 0, name: "Jon" },
+  { id: 999, name: "Timma" },
+];
 
 function findById(id) {
-
+  let employee = staff.find((w) => w.id == id);
+  if (employee) {
+    return employee;
+  } else {
+    return new Object({
+      error: "No user with that id.",
+    });
+  }
+  // if (staff.find((w) => w.id !== id)) {
+  //   console.log("No user with that id");
+  // } else {
 }
 
-
 // ------------------------------------------
-
 
 // 6. Write a function that accepts a name argument and will loop over theBand members and return the band member's name and the instrument that he/she plays. Use string concatenation or interpolation to return a sentence with the following structure: "[band-members-name] is in the band and plays the [band-members-instrument]".
 // Example:
@@ -97,18 +133,33 @@ function findById(id) {
 // output: "Johnny P is in the band and plays the sax"
 
 let theBand = {
-    homeCity: "Birmingham",
-    members: [{
-        name: 'Johnny P',
-        instrument: 'sax'
-    }, {
-        name: 'River',
-        instrument: 'drums'
-    }, {
-        name: 'Kris',
-        instrument: 'guitar'
-    }]
-}
+  homeCity: "Birmingham",
+  members: [
+    {
+      name: "Johnny P",
+      instrument: "sax",
+    },
+    {
+      name: "River",
+      instrument: "drums",
+    },
+    {
+      name: "Kris",
+      instrument: "guitar",
+    },
+  ],
+};
 
 function bandMemberDetails(name) {
+  //   console.log(theBand.members);
+  theBand.members.forEach((element) => {
+    console.log(element.name);
+  });
+  // for (let i = 0; i < theBand.members.length; i++) {
+  //   console.log(members.name[i]);
+  // }
+
+  let bandMember = theBand.members.find((b) => b.name == name);
+
+  return `${bandMember.name} is in the band and plays the ${bandMember.instrument}`;
 }
